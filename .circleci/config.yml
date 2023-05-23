@@ -22,8 +22,9 @@ defaults:
   node-versions: &node-versions
     - "12.22"
     - "14.21"
-    - "16.18"
-    - "18.12"
+    - "16.20"
+    - "18.16"
+    - "20.2"
   pkg-cache-path: &pkg-cache-path /tmp/pkg-node-binaries
 
 commands:
