@@ -111,9 +111,29 @@ items:
       description: An object that describes where in the file the issue was found. It contains two sub-properties, start and end, each of which is an object with line and character properties. line and character are integers that represent the line number and the character position within the line, respectively, where the issue starts or ends.
       properties:
         start:
-          $ref: "#/x-defs/Location"
+          type: object
+          properties:
+            line:
+              type: integer
+              minimum: 0
+            character:
+              type: integer
+              minimum: 0
+          required:
+            - line
+            - character
         end:
-          $ref: "#/x-defs/Location"
+          type: object
+          properties:
+            line:
+              type: integer
+              minimum: 0
+            character:
+              type: integer
+              minimum: 0
+          required:
+            - line
+            - character
     source:
       type: string
       description: A string that contains the file path of the document that was analyzed by Spectral. It points to the source of the issue.
@@ -124,19 +144,6 @@ items:
     - severity
     - range
     - source
-x-defs:
-  Location:
-    type: object
-    properties:
-      line:
-        type: integer
-        minimum: 0
-      character:
-        type: integer
-        minimum: 0
-    required:
-      - line
-      - character
 ```
 
 <!--
