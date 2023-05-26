@@ -77,6 +77,7 @@ Changing the fail severity wont' affect output. To change the results Spectral C
 Spectral's JSON formatter outputs the results of a Spectral analysis in a JSON format that is easily parsable and human-readable. The output can be used to programmatically access and process the results of the analysis. You can enable this by adding `-f json` to the cli command.
 
 Here's the schema for the output:
+
 <!--
 type: tab
 title: Schema
@@ -97,48 +98,57 @@ items:
         type: string
     message:
       type: string
-      description: A string that contains a human-readable message describing the issue found by Spectical. This message typically provides information on why the rule was triggered and how to fix the issue.
+      description: A string that contains a human-readable message describing the issue found by Spectral. This message typically provides information on why the rule was triggered and how to fix the issue.
     severity:
-      type: integer
-      description: 'An integer representing the severity level of the rule violation. The severity levels usually follow a specific scale defined by Spectral, such as 0 for info, 1 for warn, 2 for error, etc.'
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      description: An integer representing the severity level of the rule violation. The severity levels usually follow a specific scale defined by Spectral. 0 equals error, while 3 is hint.
     range:
       type: object
-      description: 'An object that describes where in the file the issue was found. It contains two sub-properties, start and end, each of which is an object with line and character properties. line and character are integers that represent the line number and the character position within the line, respectively, where the issue starts or ends.'
+      description: An object that describes where in the file the issue was found. It contains two sub-properties, start and end, each of which is an object with line and character properties. line and character are integers that represent the line number and the character position within the line, respectively, where the issue starts or ends.
       properties:
         start:
-          type: object
-          properties:
-            line:
-              type: integer
-            character:
-              type: integer
+          $ref: "#/%24defs/Location"
         end:
-          type: object
-          properties:
-            line:
-              type: integer
-            character:
-              type: integer
+          $ref: "#/%24defs/Location"
     source:
       type: string
       description: A string that contains the file path of the document that was analyzed by Spectral. It points to the source of the issue.
+  required:
+    - code
+    - path
+    - message
+    - severity
+    - range
+    - source
+$defs:
+  Location:
+    type: object
+    properties:
+      line:
+        type: integer
+        minimum: 0
+      character:
+        type: integer
+        minimum: 0
+    required:
+      - line
+      - character
 ```
 
 <!--
 type: tab
 title: Example
 -->
+
 ```json
 [
   {
     "code": "invalid-response",
-    "path": [
-      "paths",
-      "/users/{id}",
-      "get",
-      "responses",
-      "200"
-    ],
+    "path": ["paths", "/users/{id}", "get", "responses", "200"],
     "message": "The '200' response should include a schema definition.",
     "severity": 2,
     "range": {
@@ -155,6 +165,7 @@ title: Example
   }
 ]
 ```
+
 <!-- type: tab-end -->
 
 ## Proxying
