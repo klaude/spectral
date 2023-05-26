@@ -74,7 +74,7 @@ Changing the fail severity wont' affect output. To change the results Spectral C
 
 ### JSON Formatter
 
-Spectral's JSON formatter outputs the results of a Spectral analysis in a JSON format that is easily parsable and human-readable. The output can be used to programmatically access and process the results of the analysis. You can enable this by adding `-f json` to the cli command.
+Spectral's JSON formatter outputs the results of a Spectral analysis in a JSON format that is easily parsable and human-readable. The output can be used to programmatically access and process the results of the analysis. You can enable this by adding `-f json --quiet` to the cli command.
 
 Here's the schema for the output:
 
