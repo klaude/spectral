@@ -122,25 +122,6 @@ items:
     source:
       type: string
       description: A string that contains the file path of the document that was analyzed by Spectral. It points to the source of the issue.
-examples:
-  - - code: invalid-response
-      path:
-        - paths
-        - '/users/{id}'
-        - get
-        - responses
-        - '200'
-      message: The '200' response should include a schema definition.
-      severity: 2
-      range:
-        start:
-          line: 32
-          character: 12
-        end:
-          line: 35
-          character: 14
-      source: /Users/johndoe/projects/api-definition/openapi.yaml
-title: Spectral JSON Output
 ```
 
 <!--
